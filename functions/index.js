@@ -8,8 +8,7 @@ admin.initializeApp();
 
 const express = require("express");
 const app = express();
-
-exports.getScreams = functions.https.onRequest((req, res) => {
+app.get("/screams", (req, res) => {
   admin
     .firestore()
     .collection("screams")
@@ -23,7 +22,6 @@ exports.getScreams = functions.https.onRequest((req, res) => {
     })
     .catch((err) => console.error(err));
 });
-
 // eslint-disable-next-line consistent-return
 exports.createScream = functions.https.onRequest((req, res) => {
   if (req.method !== "POST") {
@@ -47,3 +45,5 @@ exports.createScream = functions.https.onRequest((req, res) => {
       console.error(err);
     });
 });
+
+exports.api = functions.https.onRequest(app);
